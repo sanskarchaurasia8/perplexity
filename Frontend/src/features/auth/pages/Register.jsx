@@ -45,10 +45,10 @@ const Register = () => {
       <div className="w-full max-w-md relative">
         <div className="bg-[#121212] border border-white/5 rounded-2xl p-8 shadow-2xl backdrop-blur-xl relative overflow-hidden group">
           {/* Top Gradient Bar */}
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-red-600 via-red-500 to-red-600"></div>
+          <div className="absolute top-0 left-0 w-full h-1 bg-linear-to-r from-red-600 via-red-500 to-red-600"></div>
 
           <div className="flex flex-col items-center mb-8">
-            <div className="w-16 h-16 bg-gradient-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4 -rotate-3 group-hover:-rotate-6 transition-transform duration-300 shadow-[0_0_20px_rgba(220,38,38,0.3)]">
+            <div className="w-16 h-16 bg-linear-to-br from-red-500 to-red-600 rounded-xl flex items-center justify-center mb-4 -rotate-3 group-hover:-rotate-6 transition-transform duration-300 shadow-[0_0_20px_rgba(220,38,38,0.3)]">
               <UserPlus className="w-8 h-8 text-white" />
             </div>
             <h1 className="text-3xl font-bold text-white tracking-tight">Create Account</h1>
@@ -122,7 +122,7 @@ const Register = () => {
 
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-500 hover:to-red-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 border border-red-400/20 transition-all duration-300 flex items-center justify-center group/btn shadow-[0_4px_15px_rgba(220,38,38,0.2)] mt-2"
+              className="w-full bg-linear-to-r from-red-600 to-red-500 text-white font-semibold py-3 rounded-xl hover:from-red-500 hover:to-red-400 focus:outline-none focus:ring-2 focus:ring-red-500/50 border border-red-400/20 transition-all duration-300 flex items-center justify-center group/btn shadow-[0_4px_15px_rgba(220,38,38,0.2)] mt-2"
             >
               Get Started
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />

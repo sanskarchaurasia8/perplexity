@@ -22,6 +22,15 @@ connectDB()
         process.exit(1);
     });
 
-httpServer.listen(PORT, () => {
-    console.log(`Server running on port ${PORT}`);
-});
+httpServer.listen(PORT)
+    .on("listening", () => {
+        console.log(`Server running on port ${PORT}`);
+    })
+    .on("error", (err) => {
+        if (err.code === "EADDRINUSE") {
+            console.error(`Port ${PORT} is already in use. Please stop the running process or set PORT to another value.`);
+            process.exit(1);
+        }
+        console.error("Server error:", err);
+        process.exit(1);
+    });
