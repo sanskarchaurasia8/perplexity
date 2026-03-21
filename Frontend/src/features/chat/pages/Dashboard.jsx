@@ -87,7 +87,13 @@ const Dashboard = () => {
         const userMessage = message.trim();
         const isNewChat = !chatId;
 
-        setMessages((prev) => [...prev, { role: "user", text: userMessage }]);
+        // Show user message and typing indicator instantly
+        setMessages((prev) => [
+            ...prev,
+            { role: "user", text: userMessage },
+            { role: "ai", text: "", isTyping: true }
+        ]);
+        
         setMessage("");
         setLoading(true);
 
@@ -109,7 +115,14 @@ const Dashboard = () => {
             setChatId(newChatId);
             setTitle(newTitle);
 
-            setMessages((prev) => [...prev, { role: "ai", text: aiText }]);
+            // Replace typing indicator with real response
+            setMessages((prev) => 
+                prev.map((msg) => 
+                    msg.isTyping 
+                    ? { ...msg, text: aiText, isTyping: false } 
+                    : msg
+                )
+            );
 
             setChats((prev) => {
                 const existing = prev.find((chat) => chat._id === newChatId);
@@ -120,10 +133,14 @@ const Dashboard = () => {
                 return [updated, ...prev];
             });
         } catch (err) {
-            setMessages((prev) => [
-                ...prev,
-                { role: "ai", text: "AI failed. Please try again." },
-            ]);
+            // Replace typing indicator with error
+            setMessages((prev) => 
+                prev.map((msg) => 
+                    msg.isTyping 
+                    ? { ...msg, text: "AI failed. Please try again.", isTyping: false } 
+                    : msg
+                )
+            );
             console.error("Send failed", err);
         } finally {
             setLoading(false);
@@ -237,9 +254,17 @@ const Dashboard = () => {
                                                 }`}
                                             >
                                                 {m.role === "ai" ? (
-                                                    <div className="prose prose-invert break-words">
-                                                        <ReactMarkdown>{m.text}</ReactMarkdown>
-                                                    </div>
+                                                    m.isTyping ? (
+                                                        <div className="flex items-center gap-1 py-1 px-2">
+                                                            <span className="typing-dot"></span>
+                                                            <span className="typing-dot"></span>
+                                                            <span className="typing-dot"></span>
+                                                        </div>
+                                                    ) : (
+                                                        <div className="prose prose-invert break-words">
+                                                            <ReactMarkdown>{m.text}</ReactMarkdown>
+                                                        </div>
+                                                    )
                                                 ) : (
                                                     m.text
                                                 )}
